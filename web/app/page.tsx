@@ -1,7 +1,8 @@
 import Image from "next/image";
+import { DietForm } from "./_components/diet-form";
 
 export default function Home() {
   return (
-    <h1>Teste</h1>
+    <DietForm onSubmit={() => {}} />
   );
 }
