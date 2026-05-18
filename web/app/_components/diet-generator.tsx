@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Loader, Sparkles } from "lucide-react";
 import { DietData } from "../types/diet-data";
 import { useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 
 
@@ -89,15 +90,30 @@ export function DietGenerator({data }: {data: DietData}) {
                 className="cursor-pointer gap-2"
                 size="lg"
                 onClick={handlegenerate}>
-                <Sparkles className="w-5 h-5" />
-                Gerar dieta
+                {isStreaming ? <Loader className="animate-spin" /> : <Sparkles name="w-6 h-6"/>}
+                {isStreaming ? "Gerando..." : "Gerar Plano de Dieta"}
             </Button>
             </div>
-            <div className="bg-card rounded-lg p-6 border border-border max-h[500px] overflow-y-auto ">
+           {output && ( <div className="bg-card rounded-lg p-6 border border-border max-h-[500px] overflow-y-auto ">
                 <div className="prose prose-sm max-w-none">
-                    {output}
+                    <ReactMarkdown components={{
+                  h2: ({ node, ...props }) => (
+                    <h2
+                      className="text-xl font-bold text-green-600 my-1"
+                      {...props}
+                    />
+                  ),
+                  h1: ({ node, ...props }) => (
+                    <h1
+                      className="text-2xl font-bold text-zinc-900 mb-1"
+                      {...props}
+                    />
+                  ),
+                }}>
+                        {output}
+                    </ReactMarkdown>
                 </div>
-            </div>
+            </div>)}
         </Card>
         </div>
     )
